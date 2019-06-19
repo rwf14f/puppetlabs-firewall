@@ -354,7 +354,7 @@ describe 'firewall attribute testing, happy path' do
       apply_manifest(pp, catch_changes: do_catch_changes)
     end
 
-    let(:result) { shell('iptables-save') }
+    let(:result) { run_shell('iptables-save') }
 
     it 'log_level and log_prefix' do
       expect(result.stdout).to match(%r{A INPUT -m conntrack --ctstate INVALID -m comment --comment "004 - log_level and log_prefix" -j LOG --log-prefix "IPTABLES dropped invalid: " --log-level 3})
