@@ -116,7 +116,7 @@ describe 'puppet resource firewall command' do
     before :all do
       iptables_flush_all_tables
       # This command doesn't work with all versions/oses, so let it fail
-      run_shell('iptables -t nat -A POSTROUTING -d 1.2.3.4/32 -o eth0 -m statistic --mode nth --every 2 -j SNAT --to-source 2.3.4.5', acceptable_exit_codes: [0, 1, 2])
+      run_shell('iptables -t nat -A POSTROUTING -d 1.2.3.4/32 -o eth0 -m statistic --mode nth --every 2 -j SNAT --to-source 2.3.4.5', expect_failures: true)
       run_shell('iptables -t nat -A POSTROUTING -d 1.2.3.4/32 -o eth0 -m statistic --mode nth --every 1 --packet 0 -j SNAT --to-source 2.3.4.6')
       run_shell('iptables -t nat -A POSTROUTING -d 1.2.3.4/32 -o eth0 -m statistic --mode random --probability 0.99 -j SNAT --to-source 2.3.4.7')
     end
