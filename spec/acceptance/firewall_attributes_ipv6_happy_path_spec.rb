@@ -263,8 +263,8 @@ describe 'firewall attribute testing, happy path', unless: (os[:family] == 'redh
         }
 
       PUPPETCODE
-      apply_manifest(pp, catch_failures: true)
-      apply_manifest(pp, catch_changes: do_catch_changes)
+      apply_manifest(pp, catch_failures: true, expect_failures: true)
+      apply_manifest(pp, catch_changes: true, expect_failures: true)
     end
     let(:result) { run_shell('ip6tables-save') }
 

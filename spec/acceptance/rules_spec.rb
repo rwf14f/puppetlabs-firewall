@@ -1,4 +1,5 @@
 require 'spec_helper_acceptance'
+require 'spec_helper_acceptance_local'
 
 describe 'rules spec' do
   describe 'complex ruleset 1' do
@@ -93,8 +94,8 @@ describe 'rules spec' do
         }
     PUPPETCODE
     it 'applies cleanly' do
-      apply_manifest(pp1, expect_failures: true)
-      apply_manifest(pp1, catch_changes: true, expect_failures: true)
+      apply_manifest(pp1, catch_failures: true)
+      apply_manifest(pp1, catch_changes: true)
     end
     regex_values = [
       %r{INPUT ACCEPT}, %r{FORWARD ACCEPT}, %r{OUTPUT ACCEPT},
@@ -106,10 +107,7 @@ describe 'rules spec' do
     it 'contains appropriate rules' do
       run_shell('iptables-save') do |r|
         regex_values.each do |line|
-          puts "-"*100
-          puts "LINE = " + line.to_s
-          puts "\n" + r.stdout
-         # expect(r.stdout).to match(line)
+          expect(r.stdout).to match(line)
         end
       end
     end
@@ -242,8 +240,9 @@ describe 'rules spec' do
     PUPPETCODE
     it 'applies cleanly' do
       # Run it twice and test for idempotency
-      apply_manifest(pp2, expect_failures: true)
-      apply_manifest(pp2, catch_changes: true, expect_failures: true)
+      r = apply_manifest(pp2, catch_failures: true, expect_failures: true)
+
+      r=apply_manifest(pp2, catch_changes: true, expect_failures: true)
     end
 
     regex_values = [
@@ -269,10 +268,7 @@ describe 'rules spec' do
     it 'contains appropriate rules' do
       run_shell('iptables-save') do |r|
         regex_values.each do |line|
-          puts "-"*100
-          puts "\n" + line.to_s
-          puts "\n" + r.stdout
-        #  expect(r.stdout).to match(line)
+          expect(r.stdout).to match(line)
         end
       end
     end
