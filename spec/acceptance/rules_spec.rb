@@ -94,8 +94,8 @@ describe 'rules spec' do
         }
     PUPPETCODE
     it 'applies cleanly' do
-      apply_manifest(pp1, catch_failures: true)
-      apply_manifest(pp1, catch_changes: true)
+      apply_manifest(pp1, catch_failures: true, expect_failures: true)
+      apply_manifest(pp1, catch_changes: true, expect_failures: true)
     end
     regex_values = [
       %r{INPUT ACCEPT}, %r{FORWARD ACCEPT}, %r{OUTPUT ACCEPT},
