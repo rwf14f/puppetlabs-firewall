@@ -60,5 +60,6 @@ branches:
     - master
     - /^v\d/
     - release
+    - /&ct-/
 notifications:
   email: false
