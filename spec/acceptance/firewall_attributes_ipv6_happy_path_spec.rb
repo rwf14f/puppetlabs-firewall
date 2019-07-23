@@ -262,6 +262,7 @@ describe 'firewall attribute testing, happy path', unless: (os[:family] == 'redh
           provider => 'ip6tables',
         }
         firewall { '1101 - ct_target tests - zone':
+          proto    => 'all',
           zone     => '4000',
           jump     => 'CT',
           chain    => 'PREROUTING',
@@ -374,7 +375,7 @@ describe 'firewall attribute testing, happy path', unless: (os[:family] == 'redh
       end
     end
     it 'zone is set' do
-      expect(result.stdout).to match(%r{-A PREROUTING -j CT --zone 4000})
+      expect(result.stdout).to match(%r{-A PREROUTING -m comment --comment "1101 - ct_target tests - zone" -j CT --zone 4000})
     end
   end
 end
