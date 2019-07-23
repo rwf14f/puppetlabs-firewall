@@ -350,6 +350,7 @@ describe 'firewall attribute testing, happy path' do
             table          => 'mangle',
           }
           firewall { '1100 - ct_target tests - zone':
+            proto => 'all',
             zone  => '4000',
             jump  => 'CT',
             chain => 'PREROUTING',
@@ -509,7 +510,7 @@ describe 'firewall attribute testing, happy path' do
       expect(result.stdout).to match(%r{-A INPUT -p tcp -m comment --comment "567 - jump" -j TEST})
     end
     it 'zone is set' do
-      expect(result.stdout).to match(%r{-A PREROUTING -j CT --zone 4000})
+      expect(result.stdout).to match(%r{-A PREROUTING -m comment --comment "1100 - ct_target tests - zone" -j CT --zone 4000})
     end
   end
 end
