@@ -4,7 +4,7 @@ HOSTS:
       - agent
       - default
     platform: el-6-x86_64
-    hypervisor: docker
-    box: centos:6
+    hypervisor: vagrant
+    box: puppetlabs/centos-6.6-64-nocm
 CONFIG:
   type: foss
