@@ -504,7 +504,7 @@ describe 'firewall attribute testing, happy path' do
     end
   end
 
-  describe 'CT target tests', unless: (os[:family] == 'redhat' && os[:release].start_with?('5', '6')) do
+  describe 'test attributes which are not available on rh5/6', unless: (os[:family] == 'redhat' && os[:release].start_with?('5', '6')) do
     before(:all) do
       pp = <<-PUPPETCODE
           firewall { '1100 - ct_target tests - zone':
