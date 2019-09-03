@@ -261,14 +261,6 @@ describe 'firewall attribute testing, happy path', unless: (os[:family] == 'redh
           proto   => all,
           provider => 'ip6tables',
         }
-        firewall { '1101 - ct_target tests - zone':
-          proto    => 'all',
-          zone     => '4000',
-          jump     => 'CT',
-          chain    => 'PREROUTING',
-          table    => 'raw',
-          provider => 'ip6tables',
-        }
       PUPPETCODE
       apply_manifest(pp, catch_failures: true)
       apply_manifest(pp, catch_changes: do_catch_changes)
